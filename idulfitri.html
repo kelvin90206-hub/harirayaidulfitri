@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THR Idul Fitri</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f9d58, #065f46);
+    overflow: hidden;
+    color: white;
+    text-align: center;
+}
+
+/* Amplop */
+.envelope {
+    position: relative;
+    width: 320px;
+    height: 220px;
+    margin: 120px auto;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.base {
+    width: 100%;
+    height: 100%;
+    background: #16a34a;
+    border-radius: 12px;
+    position: absolute;
+    z-index: 1;
+}
+
+.flap {
+    width: 100%;
+    height: 100%;
+    background: #15803d;
+    position: absolute;
+    top: 0;
+    transform-origin: top;
+    transition: transform 1s ease;
+    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    z-index: 2;
+}
+
+.envelope.open .flap {
+    transform: rotateX(180deg);
+}
+
+/* Isi surat */
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    transition: 0.8s;
+    z-index: 3;
+    width: 90%;
+}
+
+.envelope.open .content {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Tombol */
+button {
+    margin-top: 20px;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    background: gold;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}
+
+/* Ketupat */
+.ketupat {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: #a3e635;
+    transform: rotate(45deg);
+    top: 60px;
+    left: 30px;
+    animation: swing 3s infinite ease-in-out;
+}
+
+.ketupat::after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 10px;
+    background: #65a30d;
+    top: 50px;
+}
+
+.ketupat.right {
+    left: auto;
+    right: 30px;
+}
+
+@keyframes swing {
+    0%,100% { transform: rotate(45deg) translateY(0); }
+    50% { transform: rotate(45deg) translateY(10px); }
+}
+
+/* Partikel */
+.particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 50%;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from { transform: translateY(-10px); }
+    to { transform: translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="ketupat"></div>
+<div class="ketupat right"></div>
+
+<div class="envelope" onclick="openEnvelope(this)">
+    <div class="flap"></div>
+    <div class="base"></div>
+
+    <div class="content">
+        <h2>Selamat Idul Fitri 🌙</h2>
+        <p>
+            Mohon Maaf lahir dan batin ya ❤️<br><br>
+            Maaf kalau aku masih banyak kurangnya.<br>
+            Terima kasih sudah tetap ada sampai sekarang.<br><br>
+            Semoga kita terus bareng dan saling ngerti ke depannya.
+        </p>
+
+        <button onclick="goLink(event)">Ambil THR mu</button>
+    </div>
+</div>
+
+<script>
+function openEnvelope(el) {
+    el.classList.toggle("open");
+}
+
+function goLink(e) {
+    e.stopPropagation();
+    window.location.href = "https://bit.ly/4sjNOev";
+}
+
+/* efek partikel */
+function createParticle() {
+    const p = document.createElement("div");
+    p.classList.add("particle");
+    p.style.left = Math.random() * window.innerWidth + "px";
+    p.style.animationDuration = (Math.random() * 3 + 2) + "s";
+    document.body.appendChild(p);
+
+    setTimeout(() => {
+        p.remove();
+    }, 5000);
+}
+
+setInterval(createParticle, 120);
+</script>
+
+</body>
+</html>
